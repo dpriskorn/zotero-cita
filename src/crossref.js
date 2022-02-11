@@ -2,6 +2,7 @@
 
 export default class Crossref{
 	static async getCitations(doi) {
+        Zotero.debug("getCitations:DOI is: " + doi)
         const JSONResponse = await Crossref.getDOI(doi);
 
         if (JSONResponse){

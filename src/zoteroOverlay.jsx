@@ -269,7 +269,22 @@ const zoteroOverlay = {
         // filter items with doi
         // generate batch call to crossref
         // only add items not available locally yet
-        Crossref.getCitations();
+        let items = Zotero.getActiveZoteroPane().getSelectedItems();
+        Zotero.debug("getFromCrossref: Got this many items: " + 
+        items.length);
+        for (let item in items) {
+            Zotero.debug("getFromCrossref: started the loop");
+            let wrapped_item = SourceItemWrapper(item);
+            Services.prompt.alert(
+                window,
+                "DOI found",
+                wrapped_item.doi
+            );
+            Zotero.debug("getFromCrossref: "+
+            "Running item.getFromCrossref now with this.doi: " + 
+            wrapped_item.doi);
+            item.getFromCrossref(wrapped_item.doi);
+        }
     },
 
     getFromOCC: function(menuName) {
